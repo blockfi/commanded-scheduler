@@ -42,8 +42,8 @@ defmodule Commanded.Scheduler.Mixfile do
 
   defp deps do
     [
-      {:commanded, ">= 0.18.0", runtime: false},
-      {:commanded_ecto_projections, ">= 0.8.0"},
+      {:commanded, git: "https://github.com/betoxd40/commanded", tag: "v1.0.0-rc.0", override: true},
+      {:commanded_ecto_projections, "~> 1.0", override: true},
       {:crontab, "~> 1.1"},
       {:ecto, "~> 3.1"},
       {:elixir_uuid, "~> 1.2"},
