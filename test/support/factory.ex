@@ -98,7 +98,7 @@ defmodule Commanded.Scheduler.Factory do
       expires_at: expires_at
     }
 
-    :ok = TicketRouter.dispatch(reserve_ticket)
+    :ok = Commanded.Scheduler.App.dispatch(reserve_ticket)
 
     [
       ticket_uuid: ticket_uuid,
