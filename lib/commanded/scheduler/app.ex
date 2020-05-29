@@ -7,5 +7,5 @@ defmodule Commanded.Scheduler.App do
     pub_sub: :local,
     registry: :local
 
-  router(ExampleDomain.AppRouter)
+  router(Commanded.Scheduler.Router)
 end
