@@ -24,7 +24,7 @@ defmodule Commanded.Scheduler.Factory do
       due_at: due_at
     }
 
-    :ok = Router.dispatch(schedule_once)
+    :ok = Commanded.Scheduler.App.dispatch(schedule_once)
 
     [
       schedule_uuid: schedule_uuid,
@@ -54,7 +54,7 @@ defmodule Commanded.Scheduler.Factory do
       schedule: schedule
     }
 
-    :ok = Router.dispatch(schedule_recurring)
+    :ok = Commanded.Scheduler.App.dispatch(schedule_recurring)
 
     [
       schedule_uuid: schedule_uuid,
@@ -71,7 +71,7 @@ defmodule Commanded.Scheduler.Factory do
 
     trigger_schedule = %TriggerSchedule{schedule_uuid: schedule_uuid, name: name}
 
-    :ok = Router.dispatch(trigger_schedule)
+    :ok = Commanded.Scheduler.App.dispatch(trigger_schedule)
 
     []
   end
@@ -82,7 +82,7 @@ defmodule Commanded.Scheduler.Factory do
       name: context.schedule_name
     }
 
-    :ok = Router.dispatch(cancel_schedule)
+    :ok = Commanded.Scheduler.App.dispatch(cancel_schedule)
 
     []
   end

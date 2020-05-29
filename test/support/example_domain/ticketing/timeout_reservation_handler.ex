@@ -1,7 +1,7 @@
 defmodule ExampleDomain.TimeoutReservationHandler do
   @moduledoc false
 
-  use Commanded.Event.Handler, name: __MODULE__
+  use Commanded.Event.Handler, name: __MODULE__, application: Commanded.Scheduler.App
 
   alias Commanded.Scheduler.ScheduleOnce
   alias ExampleDomain.AppRouter

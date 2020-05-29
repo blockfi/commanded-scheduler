@@ -31,7 +31,7 @@ defmodule Commanded.Scheduling.SchedulingTest do
     test "should dispatch scheduled command", context do
       assert :ok = Jobs.run_jobs(context.expires_at)
 
-      assert_receive_event(ReservationExpired, fn event ->
+      assert_receive_event(Commanded.Scheduler.App, ReservationExpired, fn event ->
         assert event.ticket_uuid == context.ticket_uuid
       end)
     end

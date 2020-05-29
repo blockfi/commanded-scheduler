@@ -16,7 +16,7 @@ defmodule Commanded.ScheduleTest do
     setup [:schedule_once]
 
     test "should create scheduled once domain event", context do
-      assert_receive_event ScheduledOnce, fn scheduled ->
+      assert_receive_event Commanded.Scheduler.App, ScheduledOnce, fn scheduled ->
         assert scheduled.schedule_uuid == context.schedule_uuid
         assert scheduled.command == context.command
         assert scheduled.command_type == "Elixir.ExampleDomain.TicketBooking.Commands.TimeoutReservation"
@@ -31,7 +31,7 @@ defmodule Commanded.ScheduleTest do
         due_at: context.due_at,
       }
 
-      assert {:error, :already_scheduled} = Router.dispatch(schedule_once)
+      assert {:error, :already_scheduled} = Commanded.Scheduler.App.dispatch(schedule_once)
     end
   end
 
@@ -39,7 +39,7 @@ defmodule Commanded.ScheduleTest do
     setup [:schedule_recurring]
 
     test "should create scheduled recurring domain event", context do
-      assert_receive_event ScheduledRecurring, fn scheduled ->
+      assert_receive_event Commanded.Scheduler.App, ScheduledRecurring, fn scheduled ->
         assert scheduled.schedule_uuid == context.schedule_uuid
         assert scheduled.command == context.command
         assert scheduled.command_type == "Elixir.Commanded.Scheduler.ExampleCommand"
@@ -54,7 +54,7 @@ defmodule Commanded.ScheduleTest do
         schedule: context.schedule,
       }
 
-      assert {:error, :already_scheduled} = Router.dispatch(schedule_recurring)
+      assert {:error, :already_scheduled} = Commanded.Scheduler.App.dispatch(schedule_recurring)
     end
   end
 end

@@ -9,7 +9,7 @@ defmodule Commanded.Scheduler.Dispatcher do
 
   def execute(schedule_uuid, command) do
     Logger.debug(fn -> "Attempting to trigger schedule #{inspect schedule_uuid}" end)
-    
-    Router.dispatch(command)
+
+    Commanded.Scheduler.App.dispatch(command)
   end
 end

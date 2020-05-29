@@ -46,7 +46,7 @@ defmodule Commanded.Scheduler do
       due_at: due_at
     }
 
-    Router.dispatch(schedule_once)
+    Commanded.Scheduler.App.dispatch(schedule_once)
   end
 
   @doc """
@@ -71,7 +71,7 @@ defmodule Commanded.Scheduler do
   @spec schedule_batch(ScheduleBatch.t()) :: :ok | {:error, term}
 
   def schedule_batch(%ScheduleBatch{} = batch) do
-    Router.dispatch(batch)
+    Commanded.Scheduler.App.dispatch(batch)
   end
 
   @doc """
@@ -88,7 +88,7 @@ defmodule Commanded.Scheduler do
       name: Keyword.get(opts, :name)
     }
 
-    Router.dispatch(cancel_schedule)
+    Commanded.Scheduler.App.dispatch(cancel_schedule)
   end
 
   defp name(opts), do: Keyword.get(opts, :name)

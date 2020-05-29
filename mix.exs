@@ -32,10 +32,10 @@ defmodule Commanded.Scheduler.Mixfile do
 
   defp aliases do
     [
+      "test": ["ecto.drop", "ecto.create", "ecto.migrate", "test --no-start"],
       "event_store.reset": ["event_store.drop", "event_store.create", "event_store.init"],
       "ecto.setup": ["ecto.create", "ecto.migrate"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["test --no-start"],
       "test.watch": ["test.watch --no-start"]
     ]
   end
