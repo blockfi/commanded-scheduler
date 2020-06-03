@@ -1,6 +1,6 @@
 defmodule Commanded.Scheduler.Job do
   @moduledoc false
-  
+
   use GenServer
 
   require Logger
@@ -13,7 +13,7 @@ defmodule Commanded.Scheduler.Job do
     :name,
     :module,
     :args,
-    retries: 0,
+    retries: 0
   ]
 
   def start_link(name, module, args) do
@@ -27,7 +27,9 @@ defmodule Commanded.Scheduler.Job do
   end
 
   def handle_info(:execute, %Job{name: name, module: module, args: args} = state) do
-    task = Task.Supervisor.async_nolink(Commanded.Scheduler.JobRunner, module, :execute, [name, args])
+    task =
+      Task.Supervisor.async_nolink(Commanded.Scheduler.JobRunner, module, :execute, [name, args])
+
     timeout = job_timeout()
 
     result =
@@ -35,7 +37,7 @@ defmodule Commanded.Scheduler.Job do
         {:ok, result} -> result
         {:exit, reason} -> {:error, reason}
         nil -> {:error, :timeout}
-    end
+      end
 
     case result do
       :ok ->
@@ -43,14 +45,16 @@ defmodule Commanded.Scheduler.Job do
         {:stop, :shutdown, state}
 
       {:error, reason} ->
-        Logger.warn(fn -> describe(state) <> " failed due to: #{inspect reason}" end)
+        Logger.warn(fn -> describe(state) <> " failed due to: #{inspect(reason)}" end)
         retry(state)
     end
   end
 
   defp retry(%Job{retries: retries} = state) do
     if retries + 1 >= max_retries() do
-      Logger.error(fn -> describe(state) <> " not retrying as too many failures (#{retries + 1})" end)
+      Logger.error(fn ->
+        describe(state) <> " not retrying as too many failures (#{retries + 1})"
+      end)
 
       {:stop, :too_many_retries, state}
     else

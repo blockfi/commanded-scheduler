@@ -42,10 +42,10 @@ defmodule Commanded.Scheduler.Mixfile do
 
   defp deps do
     [
-      {:commanded, git: "https://github.com/betoxd40/commanded", tag: "v1.0.0-rc.0", override: true},
-      {:commanded_ecto_projections, "~> 1.0", override: true},
+      {:commanded, "~> 1.1"},
+      {:commanded_ecto_projections, "~> 1.1"},
       {:crontab, "~> 1.1"},
-      {:ecto, "~> 3.1"},
+      {:ecto, "~> 3.2"},
       {:elixir_uuid, "~> 1.2"},
       {:ex2ms, "~> 1.5"},
       {:postgrex, ">= 0.0.0"},

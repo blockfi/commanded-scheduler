@@ -71,13 +71,23 @@ defmodule Commanded.SchedulerTest do
 
       Scheduler.Jobs.run_jobs(run_at)
 
-      assert_receive_event(Commanded.Scheduler.App, Executed, fn executed -> executed.data == "once1" end, fn executed ->
-        assert executed.data == "once1"
-      end)
+      assert_receive_event(
+        Commanded.Scheduler.App,
+        Executed,
+        fn executed -> executed.data == "once1" end,
+        fn executed ->
+          assert executed.data == "once1"
+        end
+      )
 
-      assert_receive_event(Commanded.Scheduler.App, Executed, fn executed -> executed.data == "once2" end, fn executed ->
-        assert executed.data == "once2"
-      end)
+      assert_receive_event(
+        Commanded.Scheduler.App,
+        Executed,
+        fn executed -> executed.data == "once2" end,
+        fn executed ->
+          assert executed.data == "once2"
+        end
+      )
     end
   end
 

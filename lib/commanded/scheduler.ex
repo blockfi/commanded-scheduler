@@ -13,7 +13,6 @@ defmodule Commanded.Scheduler do
   alias Commanded.Scheduler.{
     ScheduleBatch,
     CancelSchedule,
-    Router,
     ScheduleOnce
   }
 

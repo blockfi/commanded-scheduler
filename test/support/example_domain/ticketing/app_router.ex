@@ -3,6 +3,6 @@ defmodule ExampleDomain.AppRouter do
 
   use Commanded.Commands.CompositeRouter
 
-  router ExampleDomain.TicketRouter
-  router Commanded.Scheduler.Router
+  router(ExampleDomain.TicketRouter)
+  router(Commanded.Scheduler.Router)
 end
