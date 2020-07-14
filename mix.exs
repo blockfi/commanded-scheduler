@@ -32,20 +32,20 @@ defmodule Commanded.Scheduler.Mixfile do
 
   defp aliases do
     [
+      test: ["ecto.drop", "ecto.create", "ecto.migrate", "test --no-start"],
       "event_store.reset": ["event_store.drop", "event_store.create", "event_store.init"],
       "ecto.setup": ["ecto.create", "ecto.migrate"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["test --no-start"],
       "test.watch": ["test.watch --no-start"]
     ]
   end
 
   defp deps do
     [
-      {:commanded, ">= 0.18.0", runtime: false},
-      {:commanded_ecto_projections, ">= 0.8.0"},
+      {:commanded, "~> 1.1"},
+      {:commanded_ecto_projections, "~> 1.1"},
       {:crontab, "~> 1.1"},
-      {:ecto, "~> 3.1"},
+      {:ecto, "~> 3.2"},
       {:elixir_uuid, "~> 1.2"},
       {:ex2ms, "~> 1.5"},
       {:postgrex, ">= 0.0.0"},

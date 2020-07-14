@@ -10,7 +10,7 @@ defmodule Commanded.Scheduling.DispatcherTest do
     setup [:schedule_once, :trigger_schedule]
 
     test "should dispatch command", context do
-      assert_receive_event(ScheduleTriggered, fn event ->
+      assert_receive_event(Commanded.Scheduler.App, ScheduleTriggered, fn event ->
         %{
           schedule_uuid: schedule_uuid,
           command: command,
@@ -36,7 +36,7 @@ defmodule Commanded.Scheduling.DispatcherTest do
     end
 
     test "should execute dispatch as scheduled job", context do
-      assert_receive_event(ScheduleTriggered, fn event ->
+      assert_receive_event(Commanded.Scheduler.App, ScheduleTriggered, fn event ->
         assert event.schedule_uuid == context.schedule_uuid
       end)
     end

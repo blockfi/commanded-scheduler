@@ -6,6 +6,7 @@ defmodule Commanded.Scheduler.Application do
   def start(_type, _args) do
     children = [
       {Task.Supervisor, [name: Commanded.Scheduler.JobRunner]},
+      Commanded.Scheduler.App,
       Commanded.Scheduler.Repo,
       Commanded.Scheduler.JobSupervisor,
       Commanded.Scheduler.Jobs,

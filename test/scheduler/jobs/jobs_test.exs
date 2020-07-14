@@ -2,7 +2,7 @@ defmodule Commanded.JobsTest do
   use Commanded.Scheduler.RuntimeCase
 
   alias Commanded.Helpers.Wait
-  alias Commanded.Scheduler.{Jobs,OneOffJob,RecurringJob}
+  alias Commanded.Scheduler.{Jobs, OneOffJob, RecurringJob}
 
   defmodule Job do
     @behaviour Commanded.Scheduler.Job
@@ -27,13 +27,14 @@ defmodule Commanded.JobsTest do
 
     test "should schedule job", %{run_at: run_at} do
       assert Jobs.scheduled_jobs() == [
-        %OneOffJob{
-          name: "once",
-          module: Job,
-          args: [self()],
-          run_at: run_at,
-        }
-      ]
+               %OneOffJob{
+                 name: "once",
+                 module: Job,
+                 args: [self()],
+                 run_at: run_at
+               }
+             ]
+
       assert Jobs.running_jobs() == []
     end
 
@@ -76,18 +77,21 @@ defmodule Commanded.JobsTest do
 
     test "should schedule job" do
       assert Jobs.scheduled_jobs() == [
-        %RecurringJob{
-          name: "recurring",
-          module: Job,
-          args: [self()],
-          schedule: "@daily",
-        }
-      ]
+               %RecurringJob{
+                 name: "recurring",
+                 module: Job,
+                 args: [self()],
+                 schedule: "@daily"
+               }
+             ]
+
       assert Jobs.running_jobs() == []
     end
 
     test "should reject already scheduled job" do
-      assert {:error, :already_scheduled} = Jobs.schedule_recurring("recurring", Job, [self()], "@daily")
+      assert {:error, :already_scheduled} =
+               Jobs.schedule_recurring("recurring", Job, [self()], "@daily")
+
       assert Jobs.scheduled_jobs() |> length() == 1
     end
 
@@ -106,13 +110,14 @@ defmodule Commanded.JobsTest do
       Jobs.schedule_once("once-not-due", Job, [self()], future)
 
       assert Jobs.pending_jobs(now) == [
-        %OneOffJob{
-          name: "once-due",
-          module: Job,
-          args: [self()],
-          run_at: past,
-        }
-      ]
+               %OneOffJob{
+                 name: "once-due",
+                 module: Job,
+                 args: [self()],
+                 run_at: past
+               }
+             ]
+
       assert Jobs.running_jobs() == []
     end
 
@@ -126,13 +131,14 @@ defmodule Commanded.JobsTest do
       Jobs.schedule_once("once-not-due", Job, [self()], future)
 
       assert Jobs.pending_jobs(now) == [
-        %OneOffJob{
-          name: "once-due",
-          module: Job,
-          args: [self()],
-          run_at: past,
-        }
-      ]
+               %OneOffJob{
+                 name: "once-due",
+                 module: Job,
+                 args: [self()],
+                 run_at: past
+               }
+             ]
+
       assert Jobs.running_jobs() == []
     end
   end
@@ -146,7 +152,7 @@ defmodule Commanded.JobsTest do
 
       assert_receive {:execute, "once"}
 
-      :timer.sleep 100
+      :timer.sleep(100)
 
       assert Jobs.pending_jobs(now) == []
       assert Jobs.running_jobs() == []

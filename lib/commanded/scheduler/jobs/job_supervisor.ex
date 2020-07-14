@@ -1,6 +1,6 @@
 defmodule Commanded.Scheduler.JobSupervisor do
   @moduledoc false
-  
+
   use Supervisor
 
   alias Commanded.Scheduler.Job
@@ -16,8 +16,11 @@ defmodule Commanded.Scheduler.JobSupervisor do
   def init(_arg) do
     job_spec = Supervisor.child_spec(Job, start: {Job, :start_link, []}, restart: :temporary)
 
-    Supervisor.init([
-      job_spec,
-    ], strategy: :simple_one_for_one)
+    Supervisor.init(
+      [
+        job_spec
+      ],
+      strategy: :simple_one_for_one
+    )
   end
 end
